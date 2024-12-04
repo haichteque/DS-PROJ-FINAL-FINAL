@@ -290,8 +290,10 @@ int main() {
 									getline(cin, description);
 									review* r1 = new review(rating1, description, current, revres);
 									r1->displayReview();
-									revres->posReviews.insert(*r1);
-									revres->negReviews.insert(*r1);
+									
+									revres->posReviews.insert(r1);
+									revres->negReviews.insert(r1);
+
 									current->reviewHistory.addReview(r1);
 								}
 								else { // If review for dish
@@ -315,8 +317,8 @@ int main() {
 									cin.ignore();
 									getline(cin, description);
 									review* r1 = new review(rating1, description, current, revDish);
-									revDish->negReviews.insert(*r1);
-									revDish->posReviews.insert(*r1);
+									revDish->negReviews.insert(r1);
+									revDish->posReviews.insert(r1);
 									current->reviewHistory.addReview(r1);
 									
 								}
@@ -345,8 +347,7 @@ int main() {
 							do {
 								cin >> revChoice;
 							} while (revChoice < 1 || revChoice > 2);
-							break;
-
+							
 							if (revChoice == 1) { // View reviews for the restaurant
 								cout << "Would you like to view the top five reviews ,or the bottom five reviews" << endl;
 								cout << "1. Top 5" << endl;
@@ -358,10 +359,10 @@ int main() {
 								} while (topChoice < 1 || topChoice > 2);
 
 								if (topChoice == 1) { // Print top 5
-									revres->posReviews.displayTop5();
+									revres->posReviews.displayHeap();
 								}
 								else { // Print bottom 5
-									revres->negReviews.displayTop5();
+									revres->negReviews.displayHeap();
 								}
 
 							}
@@ -385,10 +386,10 @@ int main() {
 								} while (topChoice < 1 || topChoice > 2);
 
 								if (topChoice == 1) { // Print top 5
-									revDish->posReviews.displayTop5();
+									revDish->posReviews.displayHeap();
 								}
 								else { // Print bottom 5
-									revDish->negReviews.displayTop5();
+									revDish->negReviews.displayHeap();
 								}
 							}
 

@@ -29,36 +29,33 @@ public:
 		this->email = email;
 	}
 
-	static bool isPasswordValid(string password) 
+	static bool isPasswordValid(string password)
 	{
 		int length = password.size();
-		bool isLengthMin, isSmall, isBig, isLengthMax, isSpecial, isNumber;
-		isLengthMax = 0, isLengthMin = 0, isSmall = 0, isBig = 0, isSpecial = 0, isNumber = 0;
-		if (length >= 8 && length <= 12) {
-			isLengthMax = true;
-			isLengthMin = true;
+		bool isSmall = false, isBig = false, isNumber = false, isSpecial = false;
+
+		if (length < 8 || length > 12) {
+			return false;  // Return early if length is invalid
 		}
 
-
-		for (int i = 0; i < password.size(); i++) {
-			char ch = password[i];
+		for (char ch : password) {
 			if (ch >= 'a' && ch <= 'z') {
 				isSmall = true;
-				continue;
 			}
-			if (ch >= 'A' && ch <= 'Z') {
+			else if (ch >= 'A' && ch <= 'Z') {
 				isBig = true;
-				continue;
 			}
-			if (ch >= '0' && ch <= '9') {
+			else if (ch >= '0' && ch <= '9') {
 				isNumber = true;
-				continue;
 			}
-			isSpecial = true;
+			else {
+				isSpecial = true;  // Anything else is special
+			}
 		}
 
-		return isLengthMax && isLengthMin && isSmall && isBig && isSpecial;
+		return isSmall && isBig && isNumber && isSpecial;
 	}
+
 
 	// A function that lets you edit your account details
 	void EditAccountDetails() {

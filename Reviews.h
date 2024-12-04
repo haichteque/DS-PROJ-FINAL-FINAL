@@ -44,7 +44,7 @@ public:
     void printRestaurantReview();
 
     //copy constructor 
-    review(const review& r)
+    review( review& r)
     {
         this->ID = r.ID;
         rating = r.rating;
@@ -57,7 +57,7 @@ public:
 
 
     // display the review
-    
+
     void displayReview()
     {
         cout << "\nReview ID: " << ID << endl;
@@ -73,7 +73,7 @@ public:
             printDishReview();
         }
     }
-    
+
     void editReview()
     {
         int choice;
@@ -121,34 +121,31 @@ public:
 class MinHeap
 {
 private:
-    review* heapArray;   // Array of reviews
+    review** heapArray;   // Array of reviews
     int heapSize;        // Number of reviews in the heap
 
-    // Heapify down for Min-Heap
-    void heapifyDown(int i)
-    {
+    
+     // Heapify down for Min-Heap
+    void heapifyDown(int i) {
         int smallest = i;
         int leftChild = 2 * i + 1;
         int rightChild = 2 * i + 2;
 
-        if (leftChild < heapSize && heapArray[leftChild].rating < heapArray[smallest].rating)
+        if (leftChild < heapSize && heapArray[leftChild]->rating < heapArray[smallest]->rating)
             smallest = leftChild;
 
-        if (rightChild < heapSize && heapArray[rightChild].rating < heapArray[smallest].rating)
+        if (rightChild < heapSize && heapArray[rightChild]->rating < heapArray[smallest]->rating)
             smallest = rightChild;
 
-        if (smallest != i)
-        {
+        if (smallest != i) {
             swap(heapArray[i], heapArray[smallest]);
             heapifyDown(smallest);
         }
     }
 
     // Heapify up for Min-Heap
-    void heapifyUp(int i)
-    {
-        while (i != 0 && heapArray[i].rating < heapArray[(i - 1) / 2].rating)
-        {
+    void heapifyUp(int i) {
+        while (i != 0 && heapArray[i]->rating < heapArray[(i - 1) / 2]->rating) {
             swap(heapArray[i], heapArray[(i - 1) / 2]);
             i = (i - 1) / 2;
         }
@@ -156,14 +153,18 @@ private:
 
 public:
     // Constructor
-    MinHeap()
-    {
+    MinHeap() {
         heapSize = 0;
-        heapArray = new review[capacity];
+        heapArray = new review * [capacity];  // Array of pointers
+
+        // Initialize all pointers to nullptr
+        for (int i = 0; i < capacity; i++) {
+            heapArray[i] = new review();
+        }
     }
 
     // Insert a review into the Min-Heap
-    void insert(review rev)
+    void insert(review* rev)
     {
         if (heapSize == capacity)
         {
@@ -176,21 +177,21 @@ public:
         heapifyUp(i);
     }
 
-    // Delete the minimum review
-    review deleteMin()
+     //Delete the minimum review
+    review* deleteMin()
     {
         if (heapSize <= 0)
         {
             cout << "Heap is empty, cannot delete review.\n";
             // Assuming return value for empty heap is handled separately
-            return review(); // Replace with appropriate default constructor
+            return NULL; // Replace with appropriate default constructor
         }
         if (heapSize == 1)
         {
             heapSize--;
             return heapArray[0];
         }
-        review root = heapArray[0];
+        review* root = heapArray[0];
         heapArray[0] = heapArray[heapSize - 1];
         heapSize--;
         heapifyDown(0);
@@ -202,7 +203,7 @@ public:
     {
         for (int i = 0; i < heapSize; i++)
         {
-            heapArray[i].displayReview();
+            cout << heapArray[i]->ID << " " << heapArray[i]->description << endl;
         }
         cout << endl;
     }
@@ -213,48 +214,47 @@ public:
         cout << "\nTop 5 reviews:\n";
         for (int i = 0; i < min(5, heapSize); i++)
         {
-            heapArray[i].displayReview();
+            heapArray[i]->displayReview();
         }
     }
 
     // Destructor
-    ~MinHeap()
+    /*~MinHeap()
     {
+        for (int i = 0; i < capacity; i++) {
+            if (heapArray[i])
+            delete heapArray[i];
+        }
         delete[] heapArray;
-    }
+    }*/
 };
 
-class MaxHeap
-{
+class MaxHeap {
 private:
-    review* heapArray;   // Array of reviews
+    review** heapArray;  // Array of pointers to review
     int heapSize;        // Number of reviews in the heap
 
     // Heapify down for Max-Heap
-    void heapifyDown(int i)
-    {
+    void heapifyDown(int i) {
         int largest = i;
         int leftChild = 2 * i + 1;
         int rightChild = 2 * i + 2;
 
-        if (leftChild < heapSize && heapArray[leftChild].rating > heapArray[largest].rating)
+        if (leftChild < heapSize && heapArray[leftChild]->rating > heapArray[largest]->rating)
             largest = leftChild;
 
-        if (rightChild < heapSize && heapArray[rightChild].rating > heapArray[largest].rating)
+        if (rightChild < heapSize && heapArray[rightChild]->rating > heapArray[largest]->rating)
             largest = rightChild;
 
-        if (largest != i)
-        {
+        if (largest != i) {
             swap(heapArray[i], heapArray[largest]);
             heapifyDown(largest);
         }
     }
 
     // Heapify up for Max-Heap
-    void heapifyUp(int i)
-    {
-        while (i != 0 && heapArray[i].rating > heapArray[(i - 1) / 2].rating)
-        {
+    void heapifyUp(int i) {
+        while (i != 0 && heapArray[i]->rating > heapArray[(i - 1) / 2]->rating) {
             swap(heapArray[i], heapArray[(i - 1) / 2]);
             i = (i - 1) / 2;
         }
@@ -262,41 +262,38 @@ private:
 
 public:
     // Constructor
-    MaxHeap()
-    {
+    MaxHeap() {
         heapSize = 0;
-        heapArray = new review[capacity];
+        heapArray = new review * [capacity];  // Array of pointers
+
+        // Initialize all pointers to nullptr
+        for (int i = 0; i < capacity; i++) {
+            heapArray[i] = new review();
+        }
     }
 
     // Insert a review into the Max-Heap
-    void insert(review & rev)
-    {
-        if (heapSize == capacity)
-        {
+    void insert(review* rev) {
+        if (heapSize == capacity) {
             cout << "Heap overflow, cannot insert review.\n";
             return;
         }
+        heapArray[heapSize] = rev;  // Store pointer to review
+        heapifyUp(heapSize);
         heapSize++;
-        int i = heapSize - 1;
-        heapArray[i] = rev;
-        cout << "Hello";
-        heapifyUp(i);
     }
 
     // Delete the maximum review
-    review deleteMax()
-    {
-        if (heapSize <= 0)
-        {
+    review* deleteMax() {
+        if (heapSize <= 0) {
             cout << "Heap is empty, cannot delete review.\n";
-            return review(); // Replace with appropriate default constructor
+            return nullptr;
         }
-        if (heapSize == 1)
-        {
+        if (heapSize == 1) {
             heapSize--;
-            return heapArray[0];
+            return heapArray[0];  // Return the only element
         }
-        review root = heapArray[0];
+        review* root = heapArray[0];
         heapArray[0] = heapArray[heapSize - 1];
         heapSize--;
         heapifyDown(0);
@@ -304,31 +301,31 @@ public:
     }
 
     // Display the heap
-    void displayHeap()
-    {
-        for (int i = 0; i < heapSize; i++)
-        {
-            heapArray[i].displayReview();
+    void displayHeap() {
+        for (int i = 0; i < heapSize; i++) {
+            heapArray[i]->displayReview();
         }
         cout << endl;
     }
 
     // Display top 5 reviews
-    void displayTop5()
-    {
+    void displayTop5() {
         cout << "\nTop 5 reviews:\n";
-        for (int i = 0; i < min(5, heapSize); i++)
-        {
-            heapArray[i].displayReview();
+        for (int i = 0; i < min(5, heapSize); i++) {
+            heapArray[i]->displayReview();
         }
     }
 
     // Destructor
-    ~MaxHeap()
-    {
-        delete[] heapArray;
-    }
+    //~MaxHeap() {
+    //    for (int i = 0; i < heapSize; i++) {
+    //        if (heapArray[i])
+    //        delete heapArray[i];  // Free each review
+    //    }
+    //    delete[] heapArray;  // Free the array of pointers
+    //}
 };
+
 
 int review::IDCounter = 10000; // so ID starts with 5 digits
 

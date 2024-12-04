@@ -291,7 +291,8 @@ public:
 		cout << "Enter your password: ";
 		do {
 			cin >> customer->password;
-		} while (Employee::isPasswordValid(customer->password)); // Password validation
+			if (!Employee::isPasswordValid(customer->password)) cout << "Password not valid!" << endl;
+		} while (!Employee::isPasswordValid(customer->password)); // Password validation
 		cout << "Password valid!" << endl;
 
 		// Assign ID and add to hashmap
