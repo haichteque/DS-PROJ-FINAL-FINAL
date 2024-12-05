@@ -5,7 +5,7 @@ SE-B
    */
 #define liner "===============" << endl
 #define ender 5 // Ends the program when taken as input
-#include "RestaurantHub.h"
+#include"RestaurantHub.h"
 #include "Orders.h"
 using namespace std;
 bool authenticatedAdmin() {
@@ -124,12 +124,14 @@ int main() {
 	burger1.posReviews.insert(di2);
 	burger1.negReviews.insert(di2);
 
-	restauranthub.addRestaurant(r1);
-	restauranthub.addRestaurant(r2);
-	restauranthub.addRestaurant(r3);
+	restauranthub.addRestaurant(&r1);
+	restauranthub.addRestaurant(&r2);
+	restauranthub.addRestaurant(&r3);
 
 	// DEBUGGING
 	int authenticationChoice;
+	r2.orderQueue.printres();
+
 	// MAIN MENU
 	do {
 		cout << "Welcome to RestaurantHub" << endl;
@@ -203,6 +205,8 @@ int main() {
 
 		// View as User
 		else if (authenticationChoice == 2) {
+			//r2.orderQueue.displayQueue();
+			cout << endl;
 			cout << liner;
 			cout << "What would you like to do: " << endl;
 			cout << "1. Login" << endl;
@@ -292,14 +296,13 @@ int main() {
 								order1->total += floatTemp;
 
 								tempR->orderQueue.enqueue(order1);
+								
 
 								cout << "Order was placed" << endl;
 								// Add order to customer history && current order to order1
 								current->currentOD = order1;
 								current->orderHistory.addOrders(order1);
-
-
-
+							
 
 
 							}

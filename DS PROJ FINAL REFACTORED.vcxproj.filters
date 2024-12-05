@@ -48,10 +48,10 @@
     <ClInclude Include="Restaurant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RestaurantHub.h">
+    <ClInclude Include="Reviews.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Reviews.h">
+    <ClInclude Include="RestaurantHub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

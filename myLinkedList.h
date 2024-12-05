@@ -4,28 +4,24 @@
 #include <iostream>
 #include "Restaurant.h"
 
-
-struct MyLinkedList 
+struct MyLinkedList
 {
-
-    struct Node 
+    struct Node
     {
-        Restaurant data;
+        Restaurant* data;  // Store a pointer to Restaurant
         Node* next;
 
-        Node(Restaurant value) : data(value), next(nullptr) {}
+        Node(Restaurant* value) : data(value), next(nullptr) {}
     };
 
     Node* head;
     int size;
 
-
     MyLinkedList() : head(nullptr), size(0) {}
 
-
-    ~MyLinkedList() 
+    ~MyLinkedList()
     {
-        while (head != nullptr) 
+        while (head != nullptr)
         {
             Node* temp = head;
             head = head->next;
@@ -33,8 +29,7 @@ struct MyLinkedList
         }
     }
 
-
-    void addFront(Restaurant& value) 
+    void addFront(Restaurant* value)
     {
         Node* newNode = new Node(value);
         newNode->next = head;
@@ -42,18 +37,17 @@ struct MyLinkedList
         ++size;
     }
 
-
-    void addEnd(Restaurant& value) 
+    void addEnd(Restaurant* value)
     {
         Node* newNode = new Node(value);
-        if (head == nullptr) 
+        if (head == nullptr)
         {
             head = newNode;
         }
-        else 
+        else
         {
             Node* temp = head;
-            while (temp->next != nullptr) 
+            while (temp->next != nullptr)
             {
                 temp = temp->next;
             }
@@ -62,10 +56,9 @@ struct MyLinkedList
         ++size;
     }
 
-
-    void removeFront() 
+    void removeFront()
     {
-        if (head == nullptr) 
+        if (head == nullptr)
         {
             std::cout << "List is empty. Nothing to remove." << std::endl;
             return;
@@ -76,24 +69,23 @@ struct MyLinkedList
         --size;
     }
 
-
-    void removeEnd() 
+    void removeEnd()
     {
-        if (head == nullptr) 
+        if (head == nullptr)
         {
             std::cout << "List is empty. Nothing to remove." << std::endl;
             return;
         }
 
-        if (head->next == nullptr) 
+        if (head->next == nullptr)
         {
             delete head;
             head = nullptr;
         }
-        else 
+        else
         {
             Node* temp = head;
-            while (temp->next->next != nullptr) 
+            while (temp->next->next != nullptr)
             {
                 temp = temp->next;
             }
@@ -102,19 +94,24 @@ struct MyLinkedList
         }
         --size;
     }
-    void removeAtIndex(int index) {
-        if (index < 0 || index >= size) {
+
+    void removeAtIndex(int index)
+    {
+        if (index < 0 || index >= size)
+        {
             std::cout << "Invalid index. No node removed." << std::endl;
             return;
         }
 
-        if (index == 0) {
+        if (index == 0)
+        {
             removeFront();
             return;
         }
 
         Node* temp = head;
-        for (int i = 0; i < index - 1; ++i) {
+        for (int i = 0; i < index - 1; ++i)
+        {
             temp = temp->next;
         }
 
@@ -124,32 +121,32 @@ struct MyLinkedList
         --size;
     }
 
-    Restaurant* retrieveAtIndex(int index) {
-        if (index < 0 || index >= size) {
+    Restaurant* retrieveAtIndex(int index)
+    {
+        if (index < 0 || index >= size)
+        {
             std::cout << "Invalid index. No node retrieved." << std::endl;
             return nullptr;
         }
 
         Node* temp = head;
-        for (int i = 0; i < index; ++i) {
+        for (int i = 0; i < index; ++i)
+        {
             temp = temp->next;
         }
 
-        return &(temp->data);
+        return temp->data;  // Return the pointer directly
     }
 
-
-    int getSize() const {
+    int getSize() const
+    {
         return size;
     }
 
-
-    bool isEmpty() const {
+    bool isEmpty() const
+    {
         return head == nullptr;
     }
 };
 
 #endif // !MYLINKEDLIST_H
-
-
-

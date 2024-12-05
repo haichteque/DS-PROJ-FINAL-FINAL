@@ -22,7 +22,7 @@ public:
     orderPriorQ() : front(nullptr) {}
 
     // Add an order to the priority queue based on its priority
-    void enqueue(Orders* order) 
+    void enqueue(Orders * order) 
     {
         orderNode* newNode = new orderNode;
         newNode->order = order;
@@ -33,6 +33,8 @@ public:
         {
             newNode->next = front;
             front = newNode;
+			cout << "Order added to the Restaurants queue" << endl;
+            return;
         }
         else 
         {
@@ -45,9 +47,17 @@ public:
             // Insert
             newNode->next = current->next;
             current->next = newNode;
+            cout << "Order added to the Restaurants queue" << endl;
+            return;
         }
+		cout << "Order could not be added to the Restaurants queue" << endl;
+        return;
     }
-
+    void printres()
+    {
+        if(front)
+		cout << front->order->restaurantName;
+    }
 	//Process an order with highest priority
     Orders* dequeue() 
     {
@@ -76,6 +86,8 @@ public:
 	//display the queue (for debugging and shii)
     void displayQueue() const 
     {
+        if (!front)
+            cout << "The queue is empty!\n";
         orderNode* current = front;
         while (current != nullptr) 
         {
