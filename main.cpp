@@ -52,6 +52,7 @@ int main() {
 	r1.manager = &e1;
 
 	
+
 	restauranthub.hash.insertEmployee(e1);
 
 	// Restaurant 2: Ocean Grill
@@ -118,7 +119,7 @@ int main() {
 	r1.negReviews.insert(rev1);
 	r1.posReviews.insert(rev2);
 	r1.negReviews.insert(rev2);
-
+	
 	burger1.posReviews.insert(di1);
 	burger1.negReviews.insert(di1);
 	burger1.posReviews.insert(di2);
@@ -237,7 +238,8 @@ int main() {
 						cout << "5. View all your reviews" << endl;
 						cout << "6. Leave a review" << endl;
 						cout << "7. Read a review" << endl;
-						cout << "8. Exit" << endl;
+						cout << "8. Edit a review" << endl;
+						cout << "9. Exit" << endl;
 						cout << "Enter your choice: ";
 						cin >> customerMenuChoice;
 
@@ -391,7 +393,7 @@ int main() {
 									revDish->negReviews.insert(r1);
 									revDish->posReviews.insert(r1);
 									current->reviewHistory.addReview(r1);
-									
+											
 								}
 							}
 							
@@ -465,9 +467,50 @@ int main() {
 							}
 
 						}
+						case 8: {
+							current->reviewHistory.displayReviews();
+							cout << "Enter the ID of the review that you wish to edit: ";
+							int revID;
+							cin >> revID;
+							review* editRev = current->reviewHistory.retrieveReviewByID(revID);
+							if (!editRev) {
+								cout << "Review not found" << endl;
+								break;
+							}
+							cout << "What would you like to edit about this review? " << endl;
+							cout << "1. Rating" << endl;
+							cout << "2. Description" << endl;
+							int editChoice;
+							do {
+								cin >> editChoice;
+							} while (editChoice < 1 || editChoice > 2);
+							
+							if (editChoice == 1) { // If rating
+								float rating;
+								cout << "Enter your new rating from 0 to 5" << endl;
+								do {
+									cin >> rating;
+								} while (rating < 0 || rating > 5);
+
+								editRev->rating = rating;
+
+							}
+							else { // If descriptiom
+								string description;
+								cout << "Enter your new description" << endl;
+								cin.ignore();
+								getline(cin, description);
+								editRev->description = description;
+							}
+
+
+
+							break;
+						}
+
 						} // Switch ending brace
 
-					} while (customerMenuChoice != 8);
+					} while (customerMenuChoice != 9);
 				}
 			}
 			else { // Registering as a user

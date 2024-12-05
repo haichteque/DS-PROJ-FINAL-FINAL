@@ -58,12 +58,18 @@ public:
 		}
 	}
 
+	// Retrieve a review by its ID
+	review* retrieveReviewByID(int revID);
+	
+
+
 	// Display all reviews in the linked list
 	void displayReviews();
 	
 
 	// Remove a review by ID
 	void removeReview(int reviewID);
+	
 	
 
 

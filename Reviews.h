@@ -54,7 +54,7 @@ public:
         dish = r.dish;
     }
 
-
+    review* retrieveReviewByID(int revID);
 
     // display the review
 
@@ -328,6 +328,23 @@ public:
 
 
 int review::IDCounter = 10000; // so ID starts with 5 digits
+
+review*  reviewList:: retrieveReviewByID(int revID)
+{
+    reviewNode* temp = head;
+
+    while (temp != NULL)
+    {
+        if (temp->rev->ID == revID)
+        {
+            return temp->rev;
+        }
+        temp = temp->next;
+    }
+
+
+    return NULL; // Not found
+}
 
 void reviewList::displayReviews()
 {
