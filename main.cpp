@@ -33,6 +33,12 @@ int main() {
 	// Variables
 	int adminChoice;
 	PromotionStack ps;
+	Promotion* p1 = new Promotion("10OFF", 10, 2);
+	Promotion* p2 = new Promotion("20OFF", 20, 5);
+	Promotion* p3 = new Promotion("30OFF", 30, 1);
+	ps.push(p1);
+	ps.push(p2);
+	ps.push(p3);
 
 	// Instantiating RestaurantHub, and populating
 	RestaurantHub restauranthub;
@@ -296,7 +302,7 @@ int main() {
 								float floatTemp = order1->getProcessingCost();
 								cout << "Processing charge additional of : " << floatTemp << endl;
 								order1->total += floatTemp;
-
+								
 								tempR->orderQueue.enqueue(order1);
 								
 

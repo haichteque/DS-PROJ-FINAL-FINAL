@@ -70,7 +70,7 @@ void DishList:: displayDishes()
 		cout << "Dish: " << current->dish->name
 			<< "\nQuantity: " << current->quantity
 			<< "\nPrice per unit: Rs. " << current->dish->price
-			<< "\nTotal: Rs. " << current->dish->price * current->quantity
+			
 			<< endl;
 		current = current->next;
 	}
@@ -112,6 +112,20 @@ void DishList:: removeDish(int id, int quantity)
 void review::printDishReview()
 {
 	cout << "Dish: " << dish->name << endl;
+
+}
+
+float DishList:: getCost() {
+	if (head) {
+		DishNode* temp = head;
+		float cost = 0;
+		while (temp != NULL) {
+			cost += temp->quantity * temp->dish->price;
+			temp = temp->next;
+		}
+
+		return cost;
+	}
 
 }
 

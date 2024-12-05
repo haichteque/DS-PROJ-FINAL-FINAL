@@ -32,7 +32,7 @@ public:
     // Constructor
     DishList() : head(nullptr) {}
 
-    // Destructor to clean up dynamically allocated memory
+    float getCost();
 
 	// insert a dish into the list
     void addDish(Dish* dish, int quantity)
@@ -84,6 +84,7 @@ public:
     {
         ID = IDcounter++;
         setPriority(type);
+        total = orderedDishes.getCost();
     }
 
     // Set the order priority based on type
