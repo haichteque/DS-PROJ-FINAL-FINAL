@@ -1,6 +1,6 @@
 /*
 DSA Project Phase 1
-By Huzaifa Tahir 23i-0088 & Abdul Basit 23i-
+By Huzaifa Tahir 23i-0088 & Abdul Basit 23i-3018
 SE-B
    */
 #define liner "===============" << endl
@@ -36,26 +36,93 @@ int main() {
 
 	// Instantiating RestaurantHub, and populating
 	RestaurantHub restauranthub;
-	Restaurant r("Ranchers", "Fast Food");
-	r.menu = Menu(&r.name, 0);
-	Dish burger("Butcher", "Burger", 850);
-	burger.ID = burger.IDcount++;
-	r.menu.dishes.insert(burger);
+	Restaurant r1("Ranchers", "Fast Food");
+	r1.menu = Menu(&r1.name, 0);
+	Dish burger1("Butcher", "Burger", 850);
+	burger1.ID = burger1.IDcount++;
+	r1.menu.dishes.insert(burger1);
 	Dish burger2("TexasJack", "Burger", 850);
 	burger2.ID = burger2.IDcount++;
-	r.menu.dishes.insert(burger2);
+	r1.menu.dishes.insert(burger2);
 
-	// Assign employee to restaurant
-	Employee e("huz", "huz@gmail.com", "Za!nkhau");
-	e.workplace = &r;
-	e.ID = Employee::IDcounter++;
-	r.manager = &e;
-	restauranthub.addRestaurant(r);
-	e.type = 1; // As employee is a manager
+	Employee e1("Huz", "huz@gmail.com", "Za!nkhau1");
+	e1.workplace = &r1;
+	e1.ID = Employee::IDcounter++;
+	e1.type = 1;  // Manager
+	r1.manager = &e1;
 
-	// Assign employee to hashmap
-	restauranthub.hash.insertEmployee(e);
+	restauranthub.addRestaurant(r1);
+	restauranthub.hash.insertEmployee(e1);
 
+	// Restaurant 2: Ocean Grill
+	Restaurant r2("Ocean Grill", "Seafood");
+	r2.menu = Menu(&r2.name, 0);
+	Dish fishTaco("ChefNet", "Fish Taco", 1200);
+	fishTaco.ID = fishTaco.IDcount++;
+	r2.menu.dishes.insert(fishTaco);
+	Dish lobsterRoll("CaptainSea", "Lobster Roll", 2500);
+	lobsterRoll.ID = lobsterRoll.IDcount++;
+	r2.menu.dishes.insert(lobsterRoll);
+
+	Employee e2("Sara", "sara@ocean.com", "SeaPass123");
+	e2.workplace = &r2;
+	e2.ID = Employee::IDcounter++;
+	e2.type = 0;  // Manager
+	r2.manager = &e2;
+
+	restauranthub.addRestaurant(r2);
+	restauranthub.hash.insertEmployee(e2);
+
+	// Restaurant 3: Bella Italia
+	Restaurant r3("Bella Italia", "Italian");
+	r3.menu = Menu(&r3.name, 0);
+	Dish pasta("ChefMamma", "Spaghetti Carbonara", 1400);
+	pasta.ID = pasta.IDcount++;
+	r3.menu.dishes.insert(pasta);
+	Dish pizza("NapoliChef", "Margherita Pizza", 1800);
+	pizza.ID = pizza.IDcount++;
+	r3.menu.dishes.insert(pizza);
+
+	Employee e3("Marco", "marco@bella.com", "ItaliaP@ss1");
+	e3.workplace = &r3;
+	e3.ID = Employee::IDcounter++;
+	e3.type = 1;  // Manager
+	r3.manager = &e3;
+
+	// Customers populated here
+	Customer* c1 = new Customer("Huzaifa", "huzaifa@gmail.com", "P@ss1234");
+	c1->ID = c1->IDcounter++;
+	restauranthub.hash.insertCustomer(c1);
+
+	// Do the same for one more customer
+	Customer* c2 = new Customer("Abdul", "abdulbasit@gmail.com", "Abdul!23");
+	c2->ID = c2->IDcounter++;
+	restauranthub.hash.insertCustomer(c2);
+
+	restauranthub.addRestaurant(r3);
+	restauranthub.hash.insertEmployee(e3);
+
+	// Add 2 reviews for restaurant, 2 reviews for dish
+	review* rev1 = new review(4.5, "Great food, great service", c1, &r1);
+	review* rev2 = new review(3.7, "Great food, okay service", c2, &r1);
+	
+	review* di1 = new review(4.2, "Great burger, great service", c1, &burger1);
+	review* di2 = new review(3.3, "Great burger, okay service", c2, &burger1);
+
+	c1->reviewHistory.addReview(di1);
+	c2->reviewHistory.addReview(di2);
+	c1->reviewHistory.addReview(rev1);
+	c2->reviewHistory.addReview(rev2);
+
+	r1.posReviews.insert(rev1);
+	r1.negReviews.insert(rev1);
+	r1.posReviews.insert(rev2);
+	r1.negReviews.insert(rev2);
+
+	burger1.posReviews.insert(di1);
+	burger1.negReviews.insert(di1);
+	burger1.posReviews.insert(di2);
+	burger1.negReviews.insert(di2);
 
 	// DEBUGGING
 	int authenticationChoice;
@@ -252,7 +319,7 @@ int main() {
 						}
 						
 						case 5: {
-
+							current->reviewHistory.displayReviews();
 							break;
 						}
 						case 6: {
@@ -359,10 +426,10 @@ int main() {
 								} while (topChoice < 1 || topChoice > 2);
 
 								if (topChoice == 1) { // Print top 5
-									revres->posReviews.displayHeap();
+									revres->posReviews.displayTop5();
 								}
 								else { // Print bottom 5
-									revres->negReviews.displayHeap();
+									revres->negReviews.displayTop5();
 								}
 
 							}
@@ -386,10 +453,10 @@ int main() {
 								} while (topChoice < 1 || topChoice > 2);
 
 								if (topChoice == 1) { // Print top 5
-									revDish->posReviews.displayHeap();
+									revDish->posReviews.displayTop5();
 								}
 								else { // Print bottom 5
-									revDish->negReviews.displayHeap();
+									revDish->negReviews.displayTop5();
 								}
 							}
 
@@ -494,7 +561,7 @@ int main() {
 
 						cout << "1. Edit your account details" << endl;
 						cout << "2. Process Order" << endl;
-						cout << "2. Exit" << endl;
+						cout << "3. Exit" << endl;
 
 						cin >> dishchoice;
 						switch (dishchoice) {
@@ -507,6 +574,10 @@ int main() {
 						}
 						case 2: {
 							Orders* temp = current->workplace->orderQueue.dequeue();
+							if (!temp) {
+								cout << "No order currently in the queue!" << endl;
+								break;
+							}
 							temp->setWaiter(current);
 							temp->displayOrder();
 							cout << "Was processed successfully!" << endl;

@@ -80,7 +80,7 @@ public:
 
     // Constructor
     Orders(DishList orders, Customer* cust, string type,string restName)
-		: orderedDishes(orders), total(0), waiter(nullptr), customer(cust), type(type), promotion(nullptr), restaurantName(restName)
+		: orderedDishes(orders), total(0), waiter(NULL), customer(cust), type(type), promotion(nullptr), restaurantName(restName)
     {
         ID = IDcounter++;
         setPriority(type);
@@ -106,6 +106,7 @@ public:
     // Set the waiter for the order
     void setWaiter(Employee* waiter)
     {
+
         this->waiter = waiter;
     }
 
