@@ -51,7 +51,7 @@ int main() {
 	e1.type = 1;  // Manager
 	r1.manager = &e1;
 
-	restauranthub.addRestaurant(r1);
+	
 	restauranthub.hash.insertEmployee(e1);
 
 	// Restaurant 2: Ocean Grill
@@ -70,7 +70,7 @@ int main() {
 	e2.type = 0;  // Manager
 	r2.manager = &e2;
 
-	restauranthub.addRestaurant(r2);
+	
 	restauranthub.hash.insertEmployee(e2);
 
 	// Restaurant 3: Bella Italia
@@ -99,7 +99,7 @@ int main() {
 	c2->ID = c2->IDcounter++;
 	restauranthub.hash.insertCustomer(c2);
 
-	restauranthub.addRestaurant(r3);
+	
 	restauranthub.hash.insertEmployee(e3);
 
 	// Add 2 reviews for restaurant, 2 reviews for dish
@@ -123,6 +123,10 @@ int main() {
 	burger1.negReviews.insert(di1);
 	burger1.posReviews.insert(di2);
 	burger1.negReviews.insert(di2);
+
+	restauranthub.addRestaurant(r1);
+	restauranthub.addRestaurant(r2);
+	restauranthub.addRestaurant(r3);
 
 	// DEBUGGING
 	int authenticationChoice;
@@ -407,7 +411,7 @@ int main() {
 								cout << "Sorry, not exist" << endl;
 								break;
 							}
-							cout << "Would you like to leave a review for the restaurant or the dish from the restaurant" << endl;
+							cout << "Would you like to  view reviews for the restaurant or a dish from the restaurant" << endl;
 							cout << "1. Restaurant" << endl;
 							cout << "2. Dish" << endl;
 							int revChoice;

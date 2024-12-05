@@ -37,8 +37,7 @@ public:
 
 	// FUNCTIONS
 
-	// A function to initialize a dish
-
+	
 
 	// A function to print the dish
 	void printDish() {

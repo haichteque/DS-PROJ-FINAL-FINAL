@@ -131,7 +131,6 @@
     <ClInclude Include="Dish.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="HashMap.h" />
-    <ClInclude Include="LoginManager.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="myBinaryTree.h" />
     <ClInclude Include="myLinkedList.h" />

@@ -77,7 +77,7 @@ public:
 
 	OrderNode* next;   // Pointer to the next node in the list
 
-	/*OrderNode(Orders* order) : order(order), quantity(quantity), next(nullptr) {}*/
+	
 
 	OrderNode(Orders* order, OrderNode* next) :order(order), next(next) {}
 };
@@ -90,7 +90,7 @@ public:
 	// Constructor
 	OrdersList() : head(nullptr) {}
 
-	// Destructor to clean up dynamically allocated memory
+	
 
 	// insert a order into the list
 	void addOrders(Orders* order)
