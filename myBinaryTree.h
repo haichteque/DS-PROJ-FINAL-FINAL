@@ -1,7 +1,6 @@
 #ifndef MYBINARYTREE_H
 #define MYBINARYTREE_H
 #include <iostream>
-#include <queue>
 #include "Dish.h"
 
 
@@ -151,17 +150,17 @@ struct MyBinaryTree
         }
 
         
-        std::queue<TreeNode*> q;
-        q.push(root);
+        LinkedListQueue q;
+        q.enqueue(root);
 
         TreeNode* nodeToDelete = nullptr; 
         TreeNode* lastNode = nullptr;    
         TreeNode* parentOfLastNode = nullptr; 
 
         
-        while (!q.empty()) {
-            TreeNode* current = q.front();
-            q.pop();
+        while (!q.is_empty()) {
+            TreeNode* current = q.dequeue();
+            
 
             
             if (current->data.ID == id) {
@@ -171,11 +170,11 @@ struct MyBinaryTree
             
             if (current->left) {
                 parentOfLastNode = current;
-                q.push(current->left);
+                q.enqueue(current->left);
             }
             if (current->right) {
                 parentOfLastNode = current;
-                q.push(current->right);
+                q.enqueue(current->right);
             }
 
             lastNode = current;
