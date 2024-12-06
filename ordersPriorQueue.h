@@ -67,6 +67,14 @@ public:
             return nullptr;
         }
         orderNode* temp = front;
+        if (front->order->orderedDishes.removedDish())
+        {
+			cout << " Order corrupted !" << endl;
+			cout << " A dish was removed from the order after it was placed. Order is now corrupted and will be removed from the queue." << endl;
+			front = front->next;
+			delete temp;
+			return nullptr;
+        }
         Orders* order = front->order;
         front = front->next;
         delete temp;  // Delete the node

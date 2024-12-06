@@ -181,18 +181,22 @@ struct MyBinaryTree
         }
 
         
-        if (!nodeToDelete) {
+        if (!nodeToDelete) 
+        {
             std::cout << "Dish with ID " << id << " not found." << std::endl;
             return;
         }
 
         
-        if (nodeToDelete == lastNode) {
-            if (parentOfLastNode) {
+        if (nodeToDelete == lastNode) 
+        {
+            if (parentOfLastNode) 
+            {
                 if (parentOfLastNode->left == lastNode) parentOfLastNode->left = nullptr;
                 else if (parentOfLastNode->right == lastNode) parentOfLastNode->right = nullptr;
             }
-            else {
+            else 
+            {
                 root = nullptr; 
             }
             delete lastNode;
@@ -203,11 +207,13 @@ struct MyBinaryTree
         nodeToDelete->data = lastNode->data;
 
         
-        if (parentOfLastNode) {
+        if (parentOfLastNode) 
+        {
             if (parentOfLastNode->left == lastNode) parentOfLastNode->left = nullptr;
             else if (parentOfLastNode->right == lastNode) parentOfLastNode->right = nullptr;
         }
-        else {
+        else 
+        {
             root = nullptr; 
         }
         delete lastNode;

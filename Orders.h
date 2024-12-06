@@ -59,6 +59,9 @@ public:
     float calculateTotalPrice();
 	//remove a dish from the list based on the dish ID based on quantity
     void removeDish(int id, int quantity);
+    bool removedDish();
+    
+   
     
 
 };

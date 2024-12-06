@@ -2,7 +2,7 @@
 DSA Project Phase 1
 By Huzaifa Tahir 23i-0088 & Abdul Basit 23i-3018
 SE-B
-   */
+ */
 #define liner "===============" << endl
 #define ender 5 // Ends the program when taken as input
 #include"RestaurantHub.h"
@@ -74,8 +74,14 @@ int main() {
 	Employee e2("Sara", "sara@ocean.com", "SeaPass123");
 	e2.workplace = &r2;
 	e2.ID = Employee::IDcounter++;
-	e2.type = 0;  // Manager
+	e2.type = 1;  // Manager
 	r2.manager = &e2;
+
+	Employee e4("Inam", "inam@ocean.com", "inam!23");
+	e4.workplace = &r2;
+	e4.ID = Employee::IDcounter++;
+	e4.type = 0;  // Not Manager
+	restauranthub.hash.insertEmployee(e4);
 
 	
 	restauranthub.hash.insertEmployee(e2);

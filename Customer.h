@@ -189,6 +189,12 @@ public:
 
 void Orders::displayOrder()
 {
+	if (orderedDishes.removedDish())
+	{
+		cout << "A dish in the order was not found the order will be cancelled" << endl;
+		return;
+	}
+	
 	cout << "\nOrder ID: " << ID << endl;
 	cout << "Restaurant: " << restaurantName << endl;
 	if (customer)

@@ -67,12 +67,15 @@ void DishList:: displayDishes()
 	DishNode* current = head;
 	while (current != nullptr)
 	{
-		cout << "Dish: " << current->dish->name
-			<< "\nQuantity: " << current->quantity
-			<< "\nPrice per unit: Rs. " << current->dish->price
-			
-			<< endl;
-		current = current->next;
+		
+			cout << "Dish: " << current->dish->name
+				<< "\nQuantity: " << current->quantity
+				<< "\nPrice per unit: Rs. " << current->dish->price
+
+				<< endl;
+		
+		
+			current = current->next;
 	}
 }
 void DishList:: removeDish(int id, int quantity)
@@ -127,6 +130,21 @@ float DishList:: getCost() {
 		return cost;
 	}
 
+}
+bool DishList:: removedDish()
+{
+	if (head == nullptr)
+		return true;
+	DishNode* current = head;
+	while (current != nullptr)
+	{
+		if (current->dish->ID < 0)
+		{
+			return true;
+		}
+		current = current->next;
+	}
+	return false;
 }
 
 

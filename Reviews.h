@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 #define capacity 100
 
 class reviewList;
