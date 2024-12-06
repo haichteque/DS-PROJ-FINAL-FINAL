@@ -224,12 +224,12 @@ private:
         }
 
        
-        std::queue<TreeNode*> q;
-        q.push(root);
+        LinkedListQueue q;
+        q.enqueue(root);
 
-        while (!q.empty()) {
-            TreeNode* current = q.front();
-            q.pop();
+        while (!q.is_empty()) {
+            TreeNode* current = q.dequeue();
+            
 
            
             if (current->left == nullptr) {
@@ -237,7 +237,7 @@ private:
                 return root;
             }
             else {
-                q.push(current->left);
+                q.enqueue(current->left);
             }
 
             
@@ -246,7 +246,7 @@ private:
                 return root;
             }
             else {
-                q.push(current->right);
+                q.enqueue(current->right);
             }
         }
 
