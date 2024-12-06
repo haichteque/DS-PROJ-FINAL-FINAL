@@ -249,7 +249,8 @@ int main() {
 						cout << "6. Leave a review" << endl;
 						cout << "7. Read a review" << endl;
 						cout << "8. Edit a review" << endl;
-						cout << "9. Exit" << endl;
+						cout << "9. Delete a review" << endl;
+						cout << "10. Exit" << endl;
 						cout << "Enter your choice: ";
 						cin >> customerMenuChoice;
 
@@ -474,7 +475,7 @@ int main() {
 									revDish->negReviews.displayTop5();
 								}
 							}
-
+							break;
 						}
 						case 8: {
 							current->reviewHistory.displayReviews();
@@ -512,14 +513,34 @@ int main() {
 								editRev->description = description;
 							}
 
+						
 
+							break;
+						}
+
+						case 9: {
+							if (!current->reviewHistory.head) {
+								cout << "Empty!" << endl;
+								break;
+							}
+
+							current->reviewHistory.displayReviews();
+							cout << "Enter the ID of the review that you wish to delete: ";
+							int reviewID;
+							cin >> reviewID;
+							review* tempRev = current->reviewHistory.retrieveReviewByID(reviewID);
+							Restaurant* tempRes = tempRev->restaurant;
+							// Delete the review from the restaurant
+							
+
+							current->reviewHistory.removeReview(reviewID);
 
 							break;
 						}
 
 						} // Switch ending brace
 
-					} while (customerMenuChoice != 9);
+					} while (customerMenuChoice != 10);
 				}
 			}
 			else { // Registering as a user
@@ -550,101 +571,107 @@ int main() {
 					cout << "Role: Employee" << endl;
 
 				}
-				cout << "Working at: " << current->workplace->name << " Restaurant" << endl;
-				int dishchoice;
-				// Two different menus, one for manager, one for regular employee
-				if (isManager) {
-					do {
-						cout << liner;
-						cout << "1. Add a dish to the menu" << endl;
-						cout << "2. Remove a dish from the menu" << endl;
-						cout << "3. Edit a dish in the menu" << endl;
-						cout << "4. Print menu" << endl;
-						cout << "5. Create an employee's account" << endl;
-						cout << "6. Edit your account details" << endl;
-						cout << "10. Exit" << endl;
-
-						cin >> dishchoice;
-						switch (dishchoice) {
-						case 1: {
-							cin.ignore();
-							current->workplace->menu.initializeMenu();
-
-							break;
-						}
-						case 2: {
-							current->workplace->menu.printMenu();
-							cout << "Enter the ID of the dish that you wish to remove: ";
-							int dishID;
-							cin >> dishID;
-							current->workplace->menu.dishes.deleteDishById(dishID);
-
-							break;
-						}
-						case 3: {
-							current->workplace->menu.printMenu();
-							cout << "Enter the ID of the dish that you wish to edit: ";
-							int dishID;
-							cin >> dishID;
-							current->workplace->menu.editDish(dishID);
-							break;
-						}
-
-						case 4: {
-							current->workplace->menu.printMenu();
-							break;
-						}
-
-						case 5: {
-							restauranthub.initializeEmployeeNotManager(*current->workplace);
-
-							break;
-						}
-						case 6: {
-							current->EditAccountDetails();
-
-
-							break;
-						}
-						} // Switch ending bracket
-
-					} while (dishchoice != 10);
+				if (!current->workplace) {
+					cout << "Sorry, you're unemployed!" << endl;
+					
 				}
-				else { // For regular  employee
-					cout << liner;
-					do {
-						cout << liner;
+				else {
+					cout << "Working at: " << current->workplace->name << " Restaurant" << endl;
+					int dishchoice;
+					// Two different menus, one for manager, one for regular employee
+					if (isManager) {
+						do {
+							cout << liner;
+							cout << "1. Add a dish to the menu" << endl;
+							cout << "2. Remove a dish from the menu" << endl;
+							cout << "3. Edit a dish in the menu" << endl;
+							cout << "4. Print menu" << endl;
+							cout << "5. Create an employee's account" << endl;
+							cout << "6. Edit your account details" << endl;
+							cout << "10. Exit" << endl;
 
-						cout << "1. Edit your account details" << endl;
-						cout << "2. Process Order" << endl;
-						cout << "3. Exit" << endl;
+							cin >> dishchoice;
+							switch (dishchoice) {
+							case 1: {
+								cin.ignore();
+								current->workplace->menu.initializeMenu();
 
-						cin >> dishchoice;
-						switch (dishchoice) {
-
-						case 1: {
-							current->EditAccountDetails();
-
-
-							break;
-						}
-						case 2: {
-							Orders* temp = current->workplace->orderQueue.dequeue();
-							if (!temp) {
-								cout << "No order currently in the queue!" << endl;
 								break;
 							}
-							temp->setWaiter(current);
-							temp->displayOrder();
-							cout << "Was processed successfully!" << endl;
-							break;
-						}
-						} // Switch ending bracket
+							case 2: {
+								current->workplace->menu.printMenu();
+								cout << "Enter the ID of the dish that you wish to remove: ";
+								int dishID;
+								cin >> dishID;
+								current->workplace->menu.dishes.deleteDishById(dishID);
 
-					} while (dishchoice != 3);
+								break;
+							}
+							case 3: {
+								current->workplace->menu.printMenu();
+								cout << "Enter the ID of the dish that you wish to edit: ";
+								int dishID;
+								cin >> dishID;
+								current->workplace->menu.editDish(dishID);
+								break;
+							}
+
+							case 4: {
+								current->workplace->menu.printMenu();
+								break;
+							}
+
+							case 5: {
+								restauranthub.initializeEmployeeNotManager(*current->workplace);
+
+								break;
+							}
+							case 6: {
+								current->EditAccountDetails();
+
+
+								break;
+							}
+							} // Switch ending bracket
+
+						} while (dishchoice != 10);
+					}
+					else { // For regular  employee
+						cout << liner;
+						do {
+							cout << liner;
+
+							cout << "1. Edit your account details" << endl;
+							cout << "2. Process Order" << endl;
+							cout << "3. Exit" << endl;
+
+							cin >> dishchoice;
+							switch (dishchoice) {
+
+							case 1: {
+								current->EditAccountDetails();
+
+
+								break;
+							}
+							case 2: {
+								Orders* temp = current->workplace->orderQueue.dequeue();
+								if (!temp) {
+									cout << "No order currently in the queue!" << endl;
+									break;
+								}
+								temp->setWaiter(current);
+								temp->displayOrder();
+								cout << "Was processed successfully!" << endl;
+								break;
+							}
+							} // Switch ending bracket
+
+						} while (dishchoice != 3);
+
+					}
 
 				}
-
 
 
 			}

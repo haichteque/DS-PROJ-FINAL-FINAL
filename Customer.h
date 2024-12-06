@@ -32,10 +32,10 @@ public:
 
 class reviewList
 {
-private:
+public:
 	reviewNode* head; // Pointer to the head of the list
 
-public:
+
 	// Constructor
 	reviewList() : head(nullptr) {}
 

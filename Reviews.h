@@ -214,6 +214,7 @@ public:
         cout << "\nTop 5 reviews:\n";
         for (int i = 0; i < min(5, heapSize); i++)
         {
+            if (heapArray[i]->ID > 0)
             heapArray[i]->displayReview();
         }
     }
@@ -312,6 +313,7 @@ public:
     void displayTop5() {
         cout << "\nTop 5 reviews:\n";
         for (int i = 0; i < min(5, heapSize); i++) {
+            if (heapArray[i]->ID > 0)
             heapArray[i]->displayReview();
         }
     }
