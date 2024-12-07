@@ -7,7 +7,10 @@ SE-B
 #define ender 5 // Ends the program when taken as input
 #include"RestaurantHub.h"
 #include "Orders.h"
+#include "Graph.h"
 using namespace std;
+
+
 bool authenticatedAdmin() {
 	int count = 0;
 	bool flag = true;
@@ -30,6 +33,43 @@ bool authenticatedAdmin() {
 
 int main() {
 
+	// Initialize everything into a graph
+	std::ifstream file("Graph_of_Islamabad.csv");
+	if (!file.is_open()) {
+		std::cerr << "Error: Could not open the file.\n";
+		return 1;
+	}
+
+	Graph graph;
+
+	std::string line;
+	while (std::getline(file, line)) {
+		std::istringstream ss(line);
+		std::string vertex1, vertex2, weightStr;
+
+		if (std::getline(ss, vertex1, ',') &&
+			std::getline(ss, vertex2, ',') &&
+			std::getline(ss, weightStr)) {
+			int weight = std::stoi(weightStr);
+
+			// Get indices for the vertices
+			int index1 = graph.getVertexIndex(vertex1);
+			int index2 = graph.getVertexIndex(vertex2);
+
+			// Add edges to the adjacency list
+			if (index1 != -1 && index2 != -1) {
+				graph.addEdge(index1, index2, weight);
+			}
+		}
+	}
+	file.close();
+
+
+
+
+
+
+
 	// Variables
 	int adminChoice;
 	PromotionStack ps;
@@ -50,6 +90,8 @@ int main() {
 	Dish burger2("TexasJack", "Burger", 850);
 	burger2.ID = burger2.IDcount++;
 	r1.menu.dishes.insert(burger2);
+	r1.location = graph.vertices[0]; // sets location
+
 
 	Employee e1("Huz", "huz@gmail.com", "Za!nkhau1");
 	e1.workplace = &r1;
@@ -71,6 +113,8 @@ int main() {
 	lobsterRoll.ID = lobsterRoll.IDcount++;
 	r2.menu.dishes.insert(lobsterRoll);
 
+	r2.location = graph.vertices[1]; // sets location
+
 	Employee e2("Sara", "sara@ocean.com", "SeaPass123");
 	e2.workplace = &r2;
 	e2.ID = Employee::IDcounter++;
@@ -83,7 +127,15 @@ int main() {
 	e4.type = 0;  // Not Manager
 	restauranthub.hash.insertEmployee(e4);
 
+	// Restaurant 2 Driver
+	Employee e5("Driver", "driver@gmail.com", "driver!23");
+	e5.workplace = &r2;
+	e5.ID = Employee::IDcounter++;
+	e5.type = 3;  // Driver
+	restauranthub.hash.insertEmployee(e5);
 	
+
+
 	restauranthub.hash.insertEmployee(e2);
 
 	// Restaurant 3: Bella Italia
@@ -112,7 +164,8 @@ int main() {
 	c2->ID = c2->IDcounter++;
 	restauranthub.hash.insertCustomer(c2);
 
-	
+	r3.location = graph.vertices[2]; // sets location
+
 	restauranthub.hash.insertEmployee(e3);
 
 	// Add 2 reviews for restaurant, 2 reviews for dish
@@ -179,7 +232,7 @@ int main() {
 					cin >> adminChoice;
 					switch (adminChoice) {
 					case 1: {
-						restauranthub.initializeRestaurant();
+						restauranthub.initializeRestaurant(graph);
 						break;
 
 					}
@@ -275,6 +328,14 @@ int main() {
 								cout << "Sorry, no exist" << endl;
 							}
 							else {
+
+								// Ask customer for their location
+								graph.printVertices();
+								cout << liner;
+								cout << "Choose your location: ";
+								int locationID;
+								cin >> locationID;
+
 								tempR->menu.printMenu();
 								DishList dl;
 								bool flag = true;

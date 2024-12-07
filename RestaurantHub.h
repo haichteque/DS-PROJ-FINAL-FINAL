@@ -8,6 +8,7 @@
 #include "Customer.h"
 #include "Orders.h"
 #include <conio.h>
+#include "Graph.h"
 
 
 
@@ -26,13 +27,21 @@ public:
     }
 
     // A function to initialize a restaurant
-    void initializeRestaurant() {
+    void initializeRestaurant(Graph& graph) {
         Restaurant* r = new Restaurant;  // Dynamically allocate new restaurant
         std::cout << "Enter the name of the restaurant that you wish to add: ";
         std::cin.ignore();
         getline(std::cin, r->name);
         std::cout << "Enter the type of the restaurant (Fast Food, Cake, Bakery, Chinese, etc): ";
         getline(std::cin, r->type);
+
+        // Set the location of the restaurant
+        graph.printVertices();
+        cout << liner;
+        cout << "Enter the location of the restaurant: ";
+        getline(cin, r->location);
+
+
 
         // Assign ID to restaurant
         r->ID = r->IDcount++;

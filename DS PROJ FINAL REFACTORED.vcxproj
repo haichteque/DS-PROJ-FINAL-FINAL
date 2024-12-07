@@ -130,6 +130,7 @@
     <ClInclude Include="Customer.h" />
     <ClInclude Include="Dish.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="myBinaryTree.h" />
@@ -145,6 +146,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Graph_of_Islamabad.csv" />
     <None Include="README.MD" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -19,7 +19,7 @@ public:
 	string email;
 	string password;
 	Restaurant* workplace;
-	bool type; // 0 means regular employee, 1 means manager
+	int type; // 0 means regular employee, 1 means manager
 
 	Employee() = default;
 	Employee(string name, string email, string password) 

@@ -54,6 +54,9 @@
     <ClInclude Include="RestaurantHub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,5 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.MD" />
+    <None Include="Graph_of_Islamabad.csv" />
   </ItemGroup>
 </Project>
