@@ -39,6 +39,16 @@ public:
             timesUsed++;  // Increment the usage count when applied
         }
     }
+	float getPromotionMinus(float total)
+	{
+        total -= (total * (discount / 100));
+		return total;
+	}
+	// Destructor
+	~Promotion()
+	{
+		
+	}
 
     // Display Promotion details
     void displayPromotion() const

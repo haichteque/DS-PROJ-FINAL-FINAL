@@ -51,17 +51,7 @@ public:
 
 int Dish::IDcount = 10000;
 
-float DishList::calculateTotalPrice()
-{
-	float total = 0;
-	DishNode* current = head;
-	while (current != nullptr)
-	{
-		total += current->dish->price * current->quantity;
-		current = current->next;
-	}
-	return total;
-}
+
 void DishList:: displayDishes()
 {
 	DishNode* current = head;

@@ -309,12 +309,8 @@ int main() {
 								float floatTemp = order1->getProcessingCost();
 								cout << "Processing charge additional of : " << floatTemp << endl;
 								order1->total += floatTemp;
-								
 								tempR->orderQueue.enqueue(order1);
-								
-
 								cout << "Order was placed" << endl;
-								// Add order to customer history && current order to order1
 								current->currentOD = order1;
 								current->orderHistory.addOrders(order1);
 							

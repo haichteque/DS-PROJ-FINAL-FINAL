@@ -208,7 +208,11 @@ void Orders::displayOrder()
 	}
 	cout << "Ordered Dishes: " << endl;
 	orderedDishes.displayDishes();
-	cout << "Total: Rs. " << total << endl;
+	total = orderedDishes.getCost();
+	total=promotion->getPromotionMinus(total);
+	total += getProcessingCost();
+
+	cout << "Total: RS " << total << endl;
 }
 
 int Customer::IDcounter = 10000;

@@ -54,9 +54,7 @@ public:
     }
 	//Display all the dishes in the list
     void displayDishes();
-    
-	//calculate the total price of all the dishes in the list
-    float calculateTotalPrice();
+
 	//remove a dish from the list based on the dish ID based on quantity
     void removeDish(int id, int quantity);
     bool removedDish();
@@ -123,13 +121,13 @@ public:
     // Calculate the total price of the order
     void calculateTotal()
     {
-        total = orderedDishes.calculateTotalPrice();
+		total = orderedDishes.getCost();
     }
     float getProcessingCost()
     {
-        if (type == "Premium" || type == "Premium")
+        if (type == "Premium" || type == "premium")
             return 500.0;
-		else if (type == "Express" || type == "Express")
+		else if (type == "Express" || type == "express")
 			// 10% of the total price
 			return (total * 0.1);
 		else
