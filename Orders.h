@@ -78,7 +78,8 @@ public:
     float priority;                         // priority of the order
     Promotion* promotion;                   // promotion applied (if any)
 	string restaurantName;                  // name of the restaurant
-
+    string location;                        // location of the customer
+    Employee* driver;                       // driver
     // Constructor
     Orders(DishList orders, Customer* cust, string type,string restName)
 		: orderedDishes(orders), total(0), waiter(NULL), customer(cust), type(type), promotion(nullptr), restaurantName(restName)
