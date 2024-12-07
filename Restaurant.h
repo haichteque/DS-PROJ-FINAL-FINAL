@@ -24,7 +24,7 @@ public:
 	string type;
 	Menu menu;
 	Employee* manager;
-
+	string location; // Location of the restaurant
 	orderPriorQ orderQueue; // Queue for orders
 
 	MaxHeap posReviews; // Max heap for positive reviews
