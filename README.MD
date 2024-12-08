@@ -17,6 +17,20 @@ This project is a restaurant management system built for managing restaurants, c
 - **`main.cpp`**: The main driver program.
 - **`RestaurantHub.h`**: Contains the class definitions and functionality related to the overall restaurant hub.
 - **`Orders.h`**: Contains the class definitions for handling orders.
+- **`Customer.h`**: Class definition for customer
+- **`Dish.h`**: Class definition for Dish, and dishlist and dishnode
+- **`Employee`**: Class definition for employee
+- **`Graph.h`**: Contains the graph which stores vertices in the form of adjacency list for reduced space complexity
+- **`HashMap.h`**: HashMap for employees and customers
+- **`MyBinaryTree.h`**: Regular binary tree to store dishes
+- **`MyLinkedList.h`**: Regular linked list to store Restaurants
+- **`ordersPriorQ.h`**: Contains the priority queue for orders being processed on the basis of type, and on the basis of weight
+- **`Promotion.h`**: Contains the promotion stack, and promotion logic
+- **`Restaurant.h`**: Contains the class for Restaurant, and everything relevant to restaurant
+- **`RestaurantHub.h`**: The singleton class that stores a linked list of restaurants, and the hashmap for customers and employees. Note that graph was stored separately.
+- **`Reviews.h`**: definition of review class, and the  reviewnode and reviewlist.
+
+
 
 ---
 
@@ -76,8 +90,7 @@ Employees log in using their assigned credentials.
 **Data Persistence:** All data is maintained in memory during runtime; no database or file storage is used.
 **Testing:** Debugging outputs are included for easier validation of the program flow.
 
-
-
+___
 
 ### NEW FEATURES AND UPDATES AFTER PHASE 2
 - Customer can now enter location of where they want to receive their order

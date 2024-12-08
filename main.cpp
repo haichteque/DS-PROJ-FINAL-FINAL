@@ -341,14 +341,16 @@ int main() {
 								cout << "Sorry, no exist" << endl;
 							}
 							else {
-
+								int locationID;
 								// Ask customer for their location
 								graph.printVertices();
 								cout << liner;
 								cout << "Choose your location: ";
-								int locationID;
-								cin >> locationID;
-								locationID--; // So that its 0-based
+								do {
+									cin >> locationID;
+									locationID--; // So that its 0-based
+								} while (locationID < 0 || locationID > graph.vertexCount-1);
+								
 								string customerLocation = graph.vertices[locationID];
 								tempR->menu.printMenu();
 								DishList dl;
