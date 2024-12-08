@@ -201,7 +201,12 @@ void Orders::displayOrder()
 		cout << "Customer: " << customer->name << endl;
 	if (waiter)
 		cout << "Waiter: " << waiter->name << endl;
+	if (driver) {
+		cout << "Driver: " << driver->name << endl;
+	}
 	cout << "Order Type: " << type << endl;
+	cout << "Order Status: " << status << endl;
+	cout << "Customer location : " << location << endl;
 	if (promotion != nullptr)
 	{
 		cout << "Promotion Applied: " << promotion->name << " - " << promotion->discount << "% Discount" << endl;

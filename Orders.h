@@ -84,7 +84,7 @@ public:
     int weight;                             // From starting location to order
     // Constructor
     Orders(DishList orders, Customer* cust, string type,string restName)
-		: orderedDishes(orders), total(0), waiter(NULL), customer(cust), type(type), promotion(nullptr), restaurantName(restName)
+		: orderedDishes(orders), total(0), waiter(NULL), customer(cust), type(type), promotion(nullptr), restaurantName(restName),status("Not Processed")
     {
         ID = IDcounter++;
         setPriority(type);

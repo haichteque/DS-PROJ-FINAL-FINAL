@@ -240,19 +240,15 @@ struct Graph {
         }
 
         // Reconstruct the shortest path using the parent array
-        stringstream pathStream;
+        string path = "";
         int current = end;
         while (current != -1) {
-            pathStream << vertices[current];
-            current = parent[current];
-            if (current != -1) {
-                pathStream << " -> ";
+            if (!path.empty()) {
+                path = " -> " + path; // Add separator before each node (except the first one)
             }
+            path = vertices[current] + path;
+            current = parent[current];
         }
-
-        // Reverse the reconstructed path because we backtrack
-        string path = pathStream.str();
-        reverse(path.begin(), path.end());
 
         // Return the path with total weight
         stringstream result;

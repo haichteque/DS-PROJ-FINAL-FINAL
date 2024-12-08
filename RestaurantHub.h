@@ -23,17 +23,17 @@ public:
     // A function to add a restaurant (stores pointer)
     void addRestaurant(Restaurant* r) {
         restaurants.addEnd(r);  // Add pointer to the linked list
-        std::cout << "Restaurant added successfully!" << std::endl;
+        cout << "Restaurant added successfully!" << endl;
     }
 
     // A function to initialize a restaurant
     void initializeRestaurant(Graph& graph) {
         Restaurant* r = new Restaurant;  // Dynamically allocate new restaurant
-        std::cout << "Enter the name of the restaurant that you wish to add: ";
-        std::cin.ignore();
-        getline(std::cin, r->name);
-        std::cout << "Enter the type of the restaurant (Fast Food, Cake, Bakery, Chinese, etc): ";
-        getline(std::cin, r->type);
+        cout << "Enter the name of the restaurant that you wish to add: ";
+        cin.ignore();
+        getline(cin, r->name);
+        cout << "Enter the type of the restaurant (Fast Food, Cake, Bakery, Chinese, etc): ";
+        getline(cin, r->type);
 
         // Set the location of the restaurant
         graph.printVertices();
@@ -80,86 +80,86 @@ public:
 
     // A function to edit a restaurant
     void editRestaurant(int index) {
-        std::cout << "===============" << std::endl;
+        cout << "===============" << endl;
         // Retrieve the restaurant first
         Restaurant* r = restaurants.retrieveAtIndex(index);
 
         if (!r) {
-            std::cout << "Invalid restaurant ID." << std::endl;
+            cout << "Invalid restaurant ID." << endl;
             return;
         }
 
         // Menu to edit restaurant details or menu details
-        std::cout << "Welcome! What would you like to edit?" << std::endl;
-        std::cout << "1. Restaurant details (name of restaurant, type, etc)" << std::endl;
-        std::cout << "2. Menu details" << std::endl;
-        std::cout << "Enter your choice: ";
+        cout << "Welcome! What would you like to edit?" << endl;
+        cout << "1. Restaurant details (name of restaurant, type, etc)" << endl;
+        cout << "2. Menu details" << endl;
+        cout << "Enter your choice: ";
         int rchoice;
-        std::cin >> rchoice;
+        cin >> rchoice;
 
         switch (rchoice) {
         case 1: {
-            std::cout << "What would you like to change about the restaurant?" << std::endl;
-            std::cout << "1. Name" << std::endl;
-            std::cout << "2. Type" << std::endl;
-            std::cout << "Enter your choice: ";
+            cout << "What would you like to change about the restaurant?" << endl;
+            cout << "1. Name" << endl;
+            cout << "2. Type" << endl;
+            cout << "Enter your choice: ";
             int resChoice;
-            std::cin >> resChoice;
+            cin >> resChoice;
 
-            std::string changer;
+            string changer;
             if (resChoice == 1) {
-                std::cout << "Enter the new name of the restaurant: ";
-                std::cin.ignore();
-                getline(std::cin, changer);
+                cout << "Enter the new name of the restaurant: ";
+                cin.ignore();
+                getline(cin, changer);
                 r->name = changer;
             }
             else if (resChoice == 2) {
-                std::cout << "Enter the new type of the restaurant: ";
-                std::cin.ignore();
-                getline(std::cin, changer);
+                cout << "Enter the new type of the restaurant: ";
+                cin.ignore();
+                getline(cin, changer);
                 r->type = changer;
             }
-            std::cout << "Changes successfully made!" << std::endl;
+            cout << "Changes successfully made!" << endl;
             break;
         }
         case 2: {
             r->menu.printMenu();
-            std::cout << "Enter the ID of the item that you wish to change: ";
+            cout << "Enter the ID of the item that you wish to change: ";
             int itemID;
-            std::cin >> itemID;
+            cin >> itemID;
             Dish* d = r->menu.dishes.retrieveDishById(itemID);
             if (!d) {
-                std::cout << "Dish not found!" << std::endl;
+                cout << "Dish not found!" << endl;
                 break;
             }
-            std::cout << "What would you like to change about this dish?" << std::endl;
-            std::cout << "1. Name" << std::endl;
-            std::cout << "2. Type" << std::endl;
-            std::cout << "3. Price" << std::endl;
-            std::cout << "Enter your choice: ";
+            cout << "What would you like to change about this dish?" << endl;
+            cout << "1. Name" << endl;
+            cout << "2. Type" << endl;
+            cout << "3. Price" << endl;
+            cout << "Enter your choice: ";
             int dishChoice;
-            std::cin >> dishChoice;
+            cin >> dishChoice;
 
-            std::string changer;
+            string changer;
             double price;
             if (dishChoice == 1) {
-                std::cout << "Enter the new name of the dish: ";
-                std::cin.ignore();
-                getline(std::cin, changer);
+                cout << "Enter the new name of the dish: ";
+                cin.ignore();
+                getline(cin, changer);
                 d->name = changer;
             }
             else if (dishChoice == 2) {
-                std::cout << "Enter the new type of the dish: ";
-                std::cin.ignore();
-                getline(std::cin, changer);
+                cout << "Enter the new type of the dish: ";
+                cin.ignore();
+                getline(cin, changer);
                 d->type = changer;
             }
             else if (dishChoice == 3) {
-                std::cout << "Enter the new price of the dish: ";
-                std::cin >> price;
+                cout << "Enter the new price of the dish: ";
+                cin >> price;
                 d->price = price;
             }
-            std::cout << "Changes made successfully!" << std::endl;
+            cout << "Changes made successfully!" << endl;
             break;
         }
         }

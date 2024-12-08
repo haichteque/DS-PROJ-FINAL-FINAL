@@ -92,7 +92,7 @@ struct MyBinaryTree
     
     void levelOrderTraversal() const {
         if (root == nullptr) {
-            std::cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << endl;
             return;
         }
         LinkedListQueue q;
@@ -103,7 +103,7 @@ struct MyBinaryTree
             if (current->left) q.enqueue (current->left);
             if (current->right) q.enqueue(current->right);
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     
@@ -116,7 +116,7 @@ struct MyBinaryTree
 
     Dish* retrieveDishById(int id) {
         if (root == nullptr) {
-            std::cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << endl;
             return nullptr;
         }
 
@@ -139,13 +139,13 @@ struct MyBinaryTree
         }
 
         
-        std::cout << "Dish with ID " << id << " not found." << std::endl;
+        cout << "Dish with ID " << id << " not found." << endl;
         return nullptr;
     }
 
     void deleteDishById(int id) {
         if (root == nullptr) {
-            std::cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << endl;
             return;
         }
 
@@ -183,7 +183,7 @@ struct MyBinaryTree
         
         if (!nodeToDelete) 
         {
-            std::cout << "Dish with ID " << id << " not found." << std::endl;
+            cout << "Dish with ID " << id << " not found." << endl;
             return;
         }
 
@@ -218,7 +218,7 @@ struct MyBinaryTree
         }
         delete lastNode;
 
-        std::cout << "Dish with ID " << id << " has been deleted." << std::endl;
+        cout << "Dish with ID " << id << " has been deleted." << endl;
     }
 
 private:

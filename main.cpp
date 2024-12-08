@@ -34,23 +34,23 @@ bool authenticatedAdmin() {
 int main() {
 
 	// Initialize everything into a graph
-	std::ifstream file("Graph_of_Islamabad.csv");
+	ifstream file("Graph_of_Islamabad.csv");
 	if (!file.is_open()) {
-		std::cerr << "Error: Could not open the file.\n";
+		cout << "Error: Could not open the file.\n";
 		return 1;
 	}
 
 	Graph graph;
 
-	std::string line;
-	while (std::getline(file, line)) {
-		std::istringstream ss(line);
-		std::string vertex1, vertex2, weightStr;
+	string line;
+	while (getline(file, line)) {
+		istringstream ss(line);
+		string vertex1, vertex2, weightStr;
 
-		if (std::getline(ss, vertex1, ',') &&
-			std::getline(ss, vertex2, ',') &&
-			std::getline(ss, weightStr)) {
-			int weight = std::stoi(weightStr);
+		if (getline(ss, vertex1, ',') &&
+			getline(ss, vertex2, ',') &&
+			getline(ss, weightStr)) {
+			int weight = stoi(weightStr);
 
 			// Get indices for the vertices
 			int index1 = graph.getVertexIndex(vertex1);
@@ -99,7 +99,12 @@ int main() {
 	e1.type = 1;  // Manager
 	r1.manager = &e1;
 
-	
+	// Restaurant 1 driver
+	Employee e6("inam", "inamullah@gmail.com", "Inamullah!23");
+	e6.workplace = &r1;
+	e6.ID = Employee::IDcounter++;
+	e6.type = 3;  // Driver
+	restauranthub.hash.insertEmployee(e6);
 
 	restauranthub.hash.insertEmployee(e1);
 
@@ -113,7 +118,7 @@ int main() {
 	lobsterRoll.ID = lobsterRoll.IDcount++;
 	r2.menu.dishes.insert(lobsterRoll);
 
-	r2.location = graph.vertices[0]; // sets location as G-6
+	r2.location = graph.vertices[1]; // sets location as G-6
 
 	Employee e2("Sara", "sara@ocean.com", "SeaPass123");
 	e2.workplace = &r2;
@@ -153,6 +158,14 @@ int main() {
 	e3.ID = Employee::IDcounter++;
 	e3.type = 1;  // Manager
 	r3.manager = &e3;
+
+	// Restaurant 3 Driver
+	Employee e7("qazi", "qazi@gmail.com", "Qazihuz!23");
+	e7.workplace = &r3;
+	e7.ID = Employee::IDcounter++;
+	e7.type = 3;  // Driver
+	restauranthub.hash.insertEmployee(e7);
+
 
 	// Customers populated here
 	Customer* c1 = new Customer("Huzaifa", "huzaifa@gmail.com", "P@ss1234");
@@ -833,6 +846,9 @@ int main() {
 									// Mark the order as delivered
 									nextOrder->status = "Delivered";
 									cout << "Order delivered to: " << graph.vertices[nextLocation] << endl;
+
+									// Set its driver as well
+									nextOrder->driver = current;
 								}
 
 								// Print the final delivery path and total weight

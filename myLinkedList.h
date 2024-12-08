@@ -60,7 +60,7 @@ struct MyLinkedList
     {
         if (head == nullptr)
         {
-            std::cout << "List is empty. Nothing to remove." << std::endl;
+            cout << "List is empty. Nothing to remove." << endl;
             return;
         }
         Node* temp = head;
@@ -73,7 +73,7 @@ struct MyLinkedList
     {
         if (head == nullptr)
         {
-            std::cout << "List is empty. Nothing to remove." << std::endl;
+            cout << "List is empty. Nothing to remove." << endl;
             return;
         }
 
@@ -99,7 +99,7 @@ struct MyLinkedList
     {
         if (index < 0 || index >= size)
         {
-            std::cout << "Invalid index. No node removed." << std::endl;
+            cout << "Invalid index. No node removed." << endl;
             return;
         }
 
@@ -125,7 +125,7 @@ struct MyLinkedList
     {
         if (index < 0 || index >= size)
         {
-            std::cout << "Invalid index. No node retrieved." << std::endl;
+            cout << "Invalid index. No node retrieved." << endl;
             return nullptr;
         }
 

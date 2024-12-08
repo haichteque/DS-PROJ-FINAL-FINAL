@@ -54,7 +54,7 @@ public:
 	// Print the restaurant's details
 	void printRestaurant()
 	{
-		cout << "ID: " << ID << " Restaurant name: " << name << " Type: " << type << " Manager: " << manager->name << endl;
+		cout << "ID: " << ID << " Restaurant name: " << name << " Type: " << type << " Manager: " << manager->name << endl << " Location: " << location << endl;
 	}
 
 
