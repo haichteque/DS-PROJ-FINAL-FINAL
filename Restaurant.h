@@ -25,8 +25,8 @@ public:
 	Menu menu;
 	Employee* manager;
 	string location; // Location of the restaurant
-	orderPriorQ orderQueue; // Queue for orders
-
+	orderPriorQ orderQueue; // Queue for orders that have not been processed
+	orderPriorQ processedOrders; // Queue for orders that have been processed, and need to be delivered
 	MaxHeap posReviews; // Max heap for positive reviews
 	MinHeap negReviews; // Min heap for negative reviews
 

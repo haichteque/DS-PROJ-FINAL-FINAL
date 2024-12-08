@@ -65,7 +65,7 @@ int main() {
 	file.close();
 
 
-
+	graph.printAdjacencyList();
 
 
 
@@ -113,7 +113,7 @@ int main() {
 	lobsterRoll.ID = lobsterRoll.IDcount++;
 	r2.menu.dishes.insert(lobsterRoll);
 
-	r2.location = graph.vertices[1]; // sets location
+	r2.location = graph.vertices[0]; // sets location as G-6
 
 	Employee e2("Sara", "sara@ocean.com", "SeaPass123");
 	e2.workplace = &r2;
@@ -335,7 +335,8 @@ int main() {
 								cout << "Choose your location: ";
 								int locationID;
 								cin >> locationID;
-
+								locationID--; // So that its 0-based
+								string customerLocation = graph.vertices[locationID];
 								tempR->menu.printMenu();
 								DishList dl;
 								bool flag = true;
@@ -365,7 +366,7 @@ int main() {
 								string type;
 								cin >> type;
 								Orders* order1 = new Orders(dl, current, type, tempR->name);
-
+								order1->location = customerLocation; // Add location to order
 								applyOrderPromotion(ps, *order1);
 								float floatTemp = order1->getProcessingCost();
 								cout << "Processing charge additional of : " << floatTemp << endl;
@@ -374,7 +375,7 @@ int main() {
 								cout << "Order was placed" << endl;
 								current->currentOD = order1;
 								current->orderHistory.addOrders(order1);
-							
+								
 
 
 							}
@@ -616,7 +617,7 @@ int main() {
 		else if (authenticationChoice == 3) {
 			int tokenID = restauranthub.authenticatedEmployee();
 			Employee* current = NULL;
-			bool isManager = 0;
+			int type = 0;
 			if (tokenID == 0) { // If not authenticated
 				cout << "Sorry, the username or password is incorrect or does not exist!" << endl;
 			}
@@ -626,13 +627,16 @@ int main() {
 				cout << "Welcome, " << current->name << endl;
 
 				if (current->type == 1) { // Prints Manager if employee is manager
-					isManager = true;
+					type = 1;
 					cout << "Role: Manager" << endl;
 
 				}
-				else { // Otherwise prints employee
+				else if (current->type == 0) { // Otherwise prints employee
 					cout << "Role: Employee" << endl;
 
+				}
+				else {
+					cout << "Role: Driver" << endl;
 				}
 				if (!current->workplace) {
 					cout << "Sorry, you're unemployed!" << endl;
@@ -642,7 +646,7 @@ int main() {
 					cout << "Working at: " << current->workplace->name << " Restaurant" << endl;
 					int dishchoice;
 					// Two different menus, one for manager, one for regular employee
-					if (isManager) {
+					if (current->type == 1) {
 						do {
 							cout << liner;
 							cout << "1. Add a dish to the menu" << endl;
@@ -699,7 +703,7 @@ int main() {
 
 						} while (dishchoice != 10);
 					}
-					else { // For regular  employee
+					else if (current->type == 0) { // For regular  employee
 						cout << liner;
 						do {
 							cout << liner;
@@ -724,6 +728,23 @@ int main() {
 									break;
 								}
 								temp->setWaiter(current);
+								temp->status = "Processed"; // The order has been processed
+
+								// Now, find weight between start and end, and add it to orderpriorq after processed
+								int startIndex = graph.getLocationIndex(current->workplace->location);
+								int endIndex = graph.getLocationIndex(temp->location);
+								int weight = graph.dijkstra(startIndex, endIndex);
+
+								// Set order weight
+								temp->weight = weight;
+
+								// Add it to the post-process order queue
+								current->workplace->processedOrders.enqueueByWeight(temp);
+
+
+
+								cout << weight << endl;
+
 								temp->displayOrder();
 								cout << "Was processed successfully!" << endl;
 								break;
@@ -732,6 +753,98 @@ int main() {
 
 						} while (dishchoice != 3);
 
+					}
+
+					else { // For delivery driver
+						cout << liner;
+						do {
+							cout << liner;
+
+							cout << "1. Edit your account details" << endl;
+							cout << "2. Process Order" << endl;
+							cout << "3. Deliver Order" << endl;
+							cout << "4. Exit" << endl;
+
+							cin >> dishchoice;
+							switch (dishchoice) {
+
+							case 1: {
+								current->EditAccountDetails();
+
+
+								break;
+							}
+							case 2: {
+								Orders* temp = current->workplace->orderQueue.dequeue();
+								if (!temp) {
+									cout << "No order currently in the queue!" << endl;
+									break;
+								}
+								temp->setWaiter(current);
+								temp->status = "Processed"; // The order has been processed
+
+								// Now, find weight between start and end, and add it to orderpriorq after processed
+								int startIndex = graph.getLocationIndex(current->workplace->location);
+								int endIndex = graph.getLocationIndex(temp->location);
+								int weight = graph.dijkstra(startIndex, endIndex);
+
+								// Set order weight
+								temp->weight = weight;
+
+								// Add it to the post-process order queue
+								current->workplace->processedOrders.enqueueByWeight(temp);
+								
+
+
+								cout << weight << endl;
+
+								temp->displayOrder();
+								cout << "Was processed successfully!" << endl;
+								break;
+							}
+							case 3: {
+								if (current->workplace->processedOrders.isEmpty()) { // if processed queue is empty
+									cout << "Sorry, no order has been processed yet that needs to be delivered" << endl;
+									break;
+								}
+
+								string deliveryPath = ""; // To store the complete delivery path
+								int currentLocation = graph.getLocationIndex(current->workplace->location); // Starting location of the delivery driver
+								int totalWeight = 0; // To keep track of the total distance covered
+
+								// Begin delivery process
+								while (!current->workplace->processedOrders.isEmpty()) {
+									Orders* nextOrder = current->workplace->processedOrders.dequeue(); // Dequeue the next order
+									int nextLocation = graph.getLocationIndex(nextOrder->location); // Get the delivery location for the order
+
+									// Find the shortest path from the current location to the order's location
+									string pathSegment = graph.dijkstraPath(currentLocation, nextLocation); // Returns path as a string
+									int segmentWeight = graph.dijkstra(currentLocation, nextLocation); // Get the distance weight
+
+									// Append the path segment to the full delivery path
+									if (!deliveryPath.empty()) {
+										deliveryPath += " -> ";
+									}
+									deliveryPath += pathSegment;
+
+									totalWeight += segmentWeight; // Add the weight of this segment
+									currentLocation = nextLocation; // Update current location to the new destination
+
+									// Mark the order as delivered
+									nextOrder->status = "Delivered";
+									cout << "Order delivered to: " << graph.vertices[nextLocation] << endl;
+								}
+
+								// Print the final delivery path and total weight
+								cout << "Final Delivery Path: " << deliveryPath << endl;
+								cout << "Total Distance Covered: " << totalWeight << " units" << endl;
+
+								break;
+							}
+	
+							} // Switch ending bracket
+
+						} while (dishchoice != 4);
 					}
 
 				}

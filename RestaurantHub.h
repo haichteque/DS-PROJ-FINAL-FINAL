@@ -253,7 +253,7 @@ public:
     }
 
 
-    // A function to initialize employee which is not manager
+    // A function to initialize employee which is not manager, but now it will initialize Driver as well
     int initializeEmployeeNotManager(Restaurant& r) {
         Employee* e = new Employee;
         cout << "Enter the employee's name: ";
@@ -273,7 +273,14 @@ public:
         }
         e->workplace = &r; // Where the employee works at
 
-        e->type = 0;
+        cout << "Are you a regular employee or a driver" << endl;
+        cout << "1. Employee" << endl;
+        cout << "2. Driver" << endl;
+        int typeChoice;
+        do {
+            cin >> typeChoice;
+        } while (typeChoice < 1 || typeChoice > 2);
+        e->type = typeChoice; // Sets the driver
 
 
         // Add employee to the hashmap

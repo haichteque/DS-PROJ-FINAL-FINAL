@@ -53,6 +53,44 @@ public:
 		cout << "Order could not be added to the Restaurants queue" << endl;
         return;
     }
+
+    // Add an order based on its weight priority
+    void enqueueByWeight(Orders* order)
+    {
+        
+            orderNode* newNode = new orderNode;
+            newNode->order = order;
+            newNode->next = nullptr;
+
+            // Check for an empty queue or if the new order has a smaller weight than the front
+            if (front == nullptr || order->weight < front->order->weight)
+            {
+                newNode->next = front;
+                front = newNode;
+                cout << "Order added to the Restaurant's queue based on shortest weight" << endl;
+                return;
+            }
+            else
+            {
+                // Traverse to find the correct position for the new order
+                orderNode* current = front;
+                while (current->next != nullptr && current->next->order->weight <= order->weight)
+                {
+                    current = current->next;
+                }
+                // Insert the new order at the correct position
+                newNode->next = current->next;
+                current->next = newNode;
+                cout << "Order added to the Restaurant's queue based on shortest weight" << endl;
+                return;
+            }
+            cout << "Order could not be added to the Restaurant's queue" << endl;
+            return;
+        
+
+    }
+
+
     void printres()
     {
         if(front)
@@ -75,6 +113,21 @@ public:
 			delete temp;
 			return nullptr;
         }
+        Orders* order = front->order;
+        front = front->next;
+        delete temp;  // Delete the node
+        return order;
+    }
+
+    // To dequeee an order by weight
+    Orders* dequeueByWeight()
+    {
+        if (front == nullptr)
+        {
+            cout << "\nQueue is empty!" << endl;
+            return nullptr;
+        }
+        orderNode* temp = front;
         Orders* order = front->order;
         front = front->next;
         delete temp;  // Delete the node
