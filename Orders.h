@@ -136,8 +136,26 @@ public:
 		else
 			return 0;
     }
+    float getDeliveryCost()
+    {
+        if (type == "Premium" || type == "premium")
+        {
+            cout << "Premium orders have free delivery" << endl;
+            return 0;
+        }
+        else if (type == "Express" || type == "express")
+        {
+            cout << "Express orders have a delivery charge of 200" << endl;
+            return 200.0;
+        }
+        else
+        {
+			cout << "Normal orders have a delivery charge of 100" << endl;
+			return 100.0;
+        }
+    }
 
-    // Remove a dish from the order
+      // Remove a dish from the order
     void removeDish(int id, int quantity)
     {
         orderedDishes.removeDish(id, quantity);

@@ -215,6 +215,7 @@ void Orders::displayOrder()
 	orderedDishes.displayDishes();
 	total = orderedDishes.getCost();
 	total=promotion->getPromotionMinus(total);
+	total += getDeliveryCost();
 	total += getProcessingCost();
 
 	cout << "Total: RS " << total << endl;

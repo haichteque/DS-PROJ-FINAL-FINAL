@@ -75,7 +75,7 @@ int main() {
 	PromotionStack ps;
 	Promotion* p1 = new Promotion("10OFF", 10, 2);
 	Promotion* p2 = new Promotion("20OFF", 20, 5);
-	Promotion* p3 = new Promotion("30OFF", 30, 1);
+	Promotion* p3 = new Promotion("30OFF", 30, 5);
 	ps.push(p1);
 	ps.push(p2);
 	ps.push(p3);
@@ -177,6 +177,60 @@ int main() {
 	c2->ID = c2->IDcounter++;
 	restauranthub.hash.insertCustomer(c2);
 
+	DishList list1;
+	list1.addDish(&lobsterRoll, 2);
+
+	Orders* o1 = new Orders(list1, c2,"Premium", "Ocean Grill");
+	o1->location = graph.vertices[4]; // sets location
+	applyOrderPromotion(ps, *o1);
+	float tmp = o1->getDeliveryCost();
+	o1->total += tmp;
+	tmp = o1->getProcessingCost();
+	o1->total += tmp;
+	r2.orderQueue.enqueue(o1);;
+	c2->orderHistory.addOrders(o1);
+
+	Orders* o2 = new Orders(list1, c2, "Premium", "Ocean Grill");
+	o2->location = graph.vertices[5]; // sets location
+	applyOrderPromotion(ps, *o2);
+	tmp = o2->getDeliveryCost();
+	o2->total += tmp;
+	 tmp = o2->getProcessingCost();
+	o2->total += tmp;
+	r2.orderQueue.enqueue(o2);;
+	c2->orderHistory.addOrders(o2);
+
+	Orders* o3 = new Orders(list1, c2, "Premium", "Ocean Grill");
+	o3->location = graph.vertices[6]; // sets location
+	applyOrderPromotion(ps, *o3);
+	tmp = o3->getDeliveryCost();
+	o3->total += tmp;
+	 tmp = o3->getProcessingCost();
+	o3->total += tmp;
+	r2.orderQueue.enqueue(o3);;
+	c2->orderHistory.addOrders(o3);
+
+	Orders* o4 = new Orders(list1, c2, "Premium", "Ocean Grill");
+	o4->location = graph.vertices[7]; // sets location
+	applyOrderPromotion(ps, *o4);
+	tmp = o4->getDeliveryCost();
+	o4->total += tmp;
+	tmp = o4->getProcessingCost();
+	o4->total += tmp;
+	r2.orderQueue.enqueue(o4);;
+	c2->orderHistory.addOrders(o4);
+
+	Orders* o5 = new Orders(list1, c2, "Premium", "Ocean Grill");
+	o5->location = graph.vertices[8]; // sets location
+	applyOrderPromotion(ps, *o5);
+	tmp = o5->getDeliveryCost();
+	o5->total += tmp;
+	 tmp = o5->getProcessingCost();
+	o5->total += tmp;
+	r2.orderQueue.enqueue(o5);;
+	c2->orderHistory.addOrders(o5);
+	c2->currentOD = o5;
+
 	r3.location = graph.vertices[2]; // sets location
 
 	restauranthub.hash.insertEmployee(e3);
@@ -207,9 +261,11 @@ int main() {
 	restauranthub.addRestaurant(&r2);
 	restauranthub.addRestaurant(&r3);
 
+	system("pause");
+	system("cls");
+
 	// DEBUGGING
 	int authenticationChoice;
-	r2.orderQueue.printres();
 
 	// MAIN MENU
 	do {
@@ -383,7 +439,9 @@ int main() {
 								Orders* order1 = new Orders(dl, current, type, tempR->name);
 								order1->location = customerLocation; // Add location to order
 								applyOrderPromotion(ps, *order1);
-								float floatTemp = order1->getProcessingCost();
+								float floatTemp = order1->getDeliveryCost();
+								order1->total += floatTemp;
+								floatTemp = order1->getProcessingCost();
 								cout << "Processing charge additional of : " << floatTemp << endl;
 								order1->total += floatTemp;
 								tempR->orderQueue.enqueue(order1);
