@@ -25,12 +25,13 @@ This project is a restaurant management system built for managing restaurants, c
 
 ### Main Menu
 On running the program, you will be greeted with the following main menu:
-Admin: Access admin functionalities after logging in.
-Customer: Register or log in as a customer to place orders or leave reviews.
-Employee: Log in as an employee to manage restaurant menus or perform other duties.
-Exit: Exit the application.
-Admin Guide
-To log in as an admin:
+**Admin:** Access admin functionalities after logging in.
+**Customer:** Register or log in as a customer to place orders or leave reviews.
+**Employee:** Log in as an employee to manage restaurant menus or perform other duties.
+**Exit:** Exit the application.
+
+### Admin Guide
+**To log in as an admin:**
 
 Username: admin
 Password: admin
@@ -39,7 +40,10 @@ Add a new restaurant.
 Print all available restaurants.
 Delete a restaurant by ID.
 Edit an existing restaurant.
-Customer Guide
+
+___
+
+### Customer Guide
 Registering
 New users can register their accounts by selecting the Customer option in the main menu.
 ___
@@ -51,25 +55,38 @@ View order history.
 View the current order and its status.
 View, leave, edit, or delete reviews for restaurants or dishes.
 ___
+
 ### Employee Guide
 Employees log in using their assigned credentials.
 
-Roles
-Manager:
-Add, remove, or edit dishes in the menu.
-Print the menu.
-Create accounts for other employees.
-Edit account details.
-Regular Employee:
-View orders and their statuses.
-Assist in order processing.
-Notes
-Error Handling: The program includes prompts and checks to ensure valid inputs (e.g., IDs, ratings, and menu options).
-Data Persistence: All data is maintained in memory during runtime; no database or file storage is used.
-Testing: Debugging outputs are included for easier validation of the program flow.
-Future Enhancements
-Implement persistent data storage.
-Add support for online payment systems.
-Integrate additional features for promotions and discounts.
-markdown
-Copy code
+### Roles
+**Manager:**
+1. Add, remove, or edit dishes in the menu.
+2. Print the menu.
+3. Create accounts for other employees.
+4. Edit account details.
+
+**Regular Employee:**
+1.View orders and their statuses.
+2. Assist in order processing.
+
+
+### Notes
+**Error Handling:** The program includes prompts and checks to ensure valid inputs (e.g., IDs, ratings, and menu options).
+**Data Persistence:** All data is maintained in memory during runtime; no database or file storage is used.
+**Testing:** Debugging outputs are included for easier validation of the program flow.
+
+
+
+
+### NEW FEATURES AND UPDATES AFTER PHASE 2
+- Customer can now enter location of where they want to receive their order
+- Restuarants now have their own location
+- A new type of employee **driver** has been introduced, this employee will deliver the order, it will also have the ability to do everything else a regular employee can do
+- Shortest path algorithm that's applied is Dijkstra's algorithm, and it's a greedy algorithm
+- Added the abiltiy to add drivers through admin
+- Added the ability to login as driver, and driver can process, and also deliver, which is exclusive **only** to the driver.
+- New delivery fees have been added to the Order
+- The different statuses of Orders are now "Not Processed", "Processed", and "Delivered".
+- The locations are all stored in an adjacency list, which is taken input through a comma separated file
+
