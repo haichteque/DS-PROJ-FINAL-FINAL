@@ -723,7 +723,8 @@ int main() {
 
 							cout << "1. Edit your account details" << endl;
 							cout << "2. Process Order" << endl;
-							cout << "3. Exit" << endl;
+							cout << "3. View order history" << endl;
+							cout << "4. Exit" << endl;
 
 							cin >> dishchoice;
 							switch (dishchoice) {
@@ -762,9 +763,16 @@ int main() {
 								cout << "Was processed successfully!" << endl;
 								break;
 							}
+
+							case 3: {
+								current->workplace->orderHistory.displayQueue();
+
+								break;
+							}
+
 							} // Switch ending bracket
 
-						} while (dishchoice != 3);
+						} while (dishchoice != 4);
 
 					}
 
@@ -776,7 +784,8 @@ int main() {
 							cout << "1. Edit your account details" << endl;
 							cout << "2. Process Order" << endl;
 							cout << "3. Deliver Order" << endl;
-							cout << "4. Exit" << endl;
+							cout << "4. View order history" << endl;
+							cout << "5. Exit" << endl;
 
 							cin >> dishchoice;
 							switch (dishchoice) {
@@ -807,7 +816,7 @@ int main() {
 								// Add it to the post-process order queue
 								current->workplace->processedOrders.enqueueByWeight(temp);
 								
-
+								
 
 								cout << weight << endl;
 
@@ -847,8 +856,9 @@ int main() {
 									nextOrder->status = "Delivered";
 									cout << "Order delivered to: " << graph.vertices[nextLocation] << endl;
 
-									// Set its driver as well
+									// Set its driver as well as adding it to orderhistory
 									nextOrder->driver = current;
+									nextOrder->driver->workplace->orderHistory.enqueueByWeight(nextOrder);
 								}
 
 								// Print the final delivery path and total weight
@@ -857,10 +867,14 @@ int main() {
 
 								break;
 							}
-	
+							case 4: {
+								current->workplace->orderHistory.displayQueue();
+
+								break;
+							}
 							} // Switch ending bracket
 
-						} while (dishchoice != 4);
+						} while (dishchoice != 5);
 					}
 
 				}

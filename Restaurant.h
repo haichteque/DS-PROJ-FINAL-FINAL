@@ -27,6 +27,7 @@ public:
 	string location; // Location of the restaurant
 	orderPriorQ orderQueue; // Queue for orders that have not been processed
 	orderPriorQ processedOrders; // Queue for orders that have been processed, and need to be delivered
+	orderPriorQ orderHistory; // Stores the orders that have been completed
 	MaxHeap posReviews; // Max heap for positive reviews
 	MinHeap negReviews; // Min heap for negative reviews
 
